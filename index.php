@@ -1,4 +1,5 @@
 <?php
+include 'ptlmFramework.php';
 include 'var.php';
 ?>
 <html>
@@ -25,20 +26,15 @@ $api_sig=md5($temp_sig);
 ?>
 
 <?php
-$base = 'http://ws.audioscrobbler.com/2.0/';
-$query_string = "";
-/*  -- getSession ---
-$params = array( 
-    'token' => $token,
-    'api_key'  => $api_key,
-    'api_sig'  => $api_sig,
-    'method' => $method_to_call
-);*/
+$session = userSession::getSession($token);
+$username=$session['name'];
+print_r($session);
+$query_string="";
 $method_to_call="user.getInfo";
 $params = array( 
     'api_key'  => $api_key,
     'method' => $method_to_call,
-    'user' => 'iambibhas',
+    'user' => $username,
     'format' => 'json'
 );
 
