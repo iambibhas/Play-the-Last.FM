@@ -1,0 +1,1 @@
+Authorize => auth.getSession + session_start() => user.getInfo
