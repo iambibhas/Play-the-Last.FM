@@ -1,6 +1,9 @@
 <?php
+session_start();
 include 'ptlmFramework.php';
 include 'var.php';
+$userSession = &New userSession;
+
 ?>
 <html>
 <head>
@@ -9,48 +12,36 @@ include 'var.php';
 <link rel="shortcut icon"  href="">
 </head>
 <body>
-<pre><?php // print_r($_SERVER); ?></pre>
 
-<?php if($_GET['token']==""){ ?>
+<?php
+    if(isset($_GET['token']) && !isset($_SESSION['key'])){
+        $token=$_GET['token']; 
+        $session = $userSession->getSession($token);
+        if(isset($session['key'])){
+            $_SESSION=$session;
+            $_SESSION['token']=$token;
+        }else{
+            echo "Invalid Token provided.";
+        }
+    }
+    if(!isset($_SESSION['key'])){ ?>
 <a href="http://www.last.fm/api/auth/?api_key=<?php echo $api_key; ?>">Authorize</a>
-<?php }else{ ?>  <!-- User is authorized -->
-<pre><?php print_r($_GET); ?></pre>
 <?php
-$token=$_GET['token'];
-$temp_sig="";
-$method_to_call="auth.getSession";
-$temp_sig= "api_key" . $api_key . "method" . $method_to_call . "token" . $token . $secret;
-// echo $temp_sig . "<br />";
-$api_sig=md5($temp_sig);
-// echo $api_sig;
+
+    } ?>  <!-- User is authorized -->
+<?php
+if(isset($_SESSION['key'])){
+$username=$_SESSION['name'];
+
+print_r($_SESSION);
+
+$userInfo = $userSession->getInfo($username);
+
 ?>
 
-<?php
-$session = userSession::getSession($token);
-$username=$session['name'];
-print_r($session);
-$query_string="";
-$method_to_call="user.getInfo";
-$params = array( 
-    'api_key'  => $api_key,
-    'method' => $method_to_call,
-    'user' => $username,
-    'format' => 'json'
-);
-
-foreach ($params as $key => $value) {
-    $query_string .= "$key=" . urlencode($value) . "&";
-}
-
-$url = "$base?$query_string";
-$url=substr_replace($url ,"",-1);
-echo $url . "<br />";
-$output = file_get_contents($url);
-$temp=json_decode($output);
-?>
-<pre><?php print_r($temp); ?> </pre>
+<pre><?php print_r($userInfo); ?> </pre>
+<a href="logout.php">Logout</a>
 
 <?php } ?>
-
 </body>
 </html>
