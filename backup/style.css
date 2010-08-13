@@ -1,0 +1,20 @@
+body{
+    background: url('images/back.png') repeat;
+    margin: 0 auto;
+    width: 800px;
+}
+#header{
+    background: url('images/header-back.png') repeat-x; 
+    height: 60px;
+}
+
+#auth a{
+    float: right;
+    color: #fff;
+    text-decoration: none;
+    padding: 25px 20px 0 0;
+    font-size: 0.7em;
+}
+#auth a:hover{
+    font-weight: bold;
+}

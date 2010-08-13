@@ -1,38 +1,30 @@
+<?php
+    if(!isset($_GET['name'])){
+        header('location: index.php');
+    }
+?>
 <?php include 'tpl/header.php'; ?>
 	<!-- end #header -->
-    
 	<div id="menu">
 		<?php include 'tpl/menu.php'; ?>
 	</div>
 	<!-- end #menu -->
-    
 	<div id="page">
-    
 		<div id="content">
-			<?php
-            if(isset($_SESSION['key'])){ 
-            include 'tpl/logged-content.php';
-            }else{
-                include 'tpl/nologged-content.php';
-            }            
-            ?>
+			<?php include 'tpl/user-content.php'; ?>
 		</div>
 		<!-- end #content -->
-        
 		<div id="sidebar">
 			<?php include 'tpl/sidebar.php'; ?>
 		</div>
 		<!-- end #sidebar -->
-        
 		<div style="clear: both;">&nbsp;</div>
 	</div>
 	<!-- end #page -->
-    
-    <div id="footer">
-        <?php include 'tpl/footer.php'; ?>
-    </div>
+	<div id="footer">
+		<?php include 'tpl/footer.php'; ?>
+	</div>
 	<!-- end #footer -->
-    
 </div>
 </body>
 </html>
