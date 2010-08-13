@@ -53,16 +53,27 @@
                         $outputDow = $outputDow . 
                         "<li><a target='_blank' href='{$trackBuyLink['download'][$i]['buyLink']}'>" . 
                         $trackBuyLink['download'][$i]['supplierName'] . 
-                        "</a> for {$trackBuyLink['download'][$i]['price']['currency']} 
-                        {$trackBuyLink['download'][$i]['price']['amount']}
-                        </li>";
+                        "</a>";
+                        if(isset($trackBuyLink['download'][$i]['price'])){
+                            $outputDow = $outputDow  . " for {$trackBuyLink['download'][$i]['price']['currency']} 
+                            {$trackBuyLink['download'][$i]['price']['amount']}";
+                        }
+                        $outputDow = $outputDow . "</li>";
                     }  ?>
                         <ul>
                     <?php
                     echo $outputDow;
                     ?> 
                         </ul>
-                <pre><?php //print_r($trackBuyLink); ?> </pre>
+                        <h3>Did You Know?</h3>
+                        <div id="album-bio">
+                            <pre width="80"><?php if(isset($trackInfo['wiki'])){
+                                echo $trackInfo['wiki']; 
+                            }else{
+                                echo "No details found";
+                            }?></pre>
+                        </div>
+                <pre><?php //print_r($trackInfo); ?> </pre>
                 <?php } ?>   
                 </div>                    
             </p>

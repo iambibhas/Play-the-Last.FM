@@ -294,10 +294,11 @@ class userSession
         $temp = file_get_contents($url);
         $output=json_decode($temp);
         $details_array=get_object_vars($output);
+        $more_details=userSession::object_to_array($output);
         if(!isset($details_array['error'])){
-            $track=get_object_vars($details_array['track']);
-            $album=get_object_vars($track['album']);
-            $image=get_object_vars($album['image'][1]);
+            $track=$more_details['track'];
+            $album=$track['album'];
+            $image=$album['image'][1];
             $result=Array(
                 'name' => $track['name'],
                 'url' => $track['url'],
@@ -305,7 +306,8 @@ class userSession
                 'scrobbles' => $track['playcount'],
                 'listeners' => $track['listeners'],
                 'albumName' => $album['title'],
-                'albumImage' => $image['#text']
+                'albumImage' => $image['#text'],
+                'wiki' => $more_details['track']['wiki']['content']
             );
             return $result;
         }else{
@@ -357,6 +359,105 @@ class userSession
         }
     }
     
+    public function getSimilarTag($tag){
+        include 'var.php';
+        $query_string="";
+        $method_to_call="tag.getSimilar";
+        $params = array( 
+            'api_key'  => $api_key,
+            'method' => $method_to_call,
+            'tag' => $tag,
+            'format' => 'json'
+        );
+
+        foreach ($params as $key => $value) {
+            $query_string .= "$key=" . urlencode($value) . "&";
+        }
+
+        $url = "$base?$query_string";
+        $url=substr_replace($url ,"",-1);
+        // echo $url . "<br />";
+        $temp = file_get_contents($url);
+        $output=json_decode($temp);
+        $details_array=userSession::object_to_array($output);
+        if(!isset($details_array['error'])){
+            $result=$details_array['similartags']['tag'];
+            return $result;
+        }else{
+            $user = Array (
+                'error' => $details_array['error'],
+                'message' => $details_array['message']
+            );
+            return $user;
+        }
+    }
+    
+    public function getTopAlbumByTag($tag){
+        include 'var.php';
+        $query_string="";
+        $method_to_call="tag.getTopAlbums";
+        $params = array( 
+            'api_key'  => $api_key,
+            'method' => $method_to_call,
+            'tag' => $tag,
+            'format' => 'json'
+        );
+
+        foreach ($params as $key => $value) {
+            $query_string .= "$key=" . urlencode($value) . "&";
+        }
+
+        $url = "$base?$query_string";
+        $url=substr_replace($url ,"",-1);
+        // echo $url . "<br />";
+        $temp = file_get_contents($url);
+        $output=json_decode($temp);
+        $details_array=userSession::object_to_array($output);
+        if(!isset($details_array['error'])){
+            $result=$details_array['topalbums']['album'];
+            return $result;
+        }else{
+            $user = Array (
+                'error' => $details_array['error'],
+                'message' => $details_array['message']
+            );
+            return $user;
+        }
+    }
+    
+    public function getTopArtistByTag($tag){
+        include 'var.php';
+        $query_string="";
+        $method_to_call="tag.getTopArtists";
+        $params = array( 
+            'api_key'  => $api_key,
+            'method' => $method_to_call,
+            'tag' => $tag,
+            'format' => 'json'
+        );
+
+        foreach ($params as $key => $value) {
+            $query_string .= "$key=" . urlencode($value) . "&";
+        }
+
+        $url = "$base?$query_string";
+        $url=substr_replace($url ,"",-1);
+        // echo $url . "<br />";
+        $temp = file_get_contents($url);
+        $output=json_decode($temp);
+        $details_array=userSession::object_to_array($output);
+        if(!isset($details_array['error'])){
+            $result=$details_array['topartists']['artist'];
+            return $result;
+        }else{
+            $user = Array (
+                'error' => $details_array['error'],
+                'message' => $details_array['message']
+            );
+            return $user;
+        }
+    }
+    
     public function getAlbumBuyLink($album,$artist){
         include 'var.php';
         $query_string="";
@@ -388,6 +489,39 @@ class userSession
                 'download' => $download
             );        
             
+            return $result;
+        }else{
+            $user = Array (
+                'error' => $details_array['error'],
+                'message' => $details_array['message']
+            );
+            return $user;
+        }
+    }
+    
+    public function getGeoTopTracks(){
+        include 'var.php';
+        $query_string="";
+        $method_to_call="geo.getTopTracks";
+        $params = array( 
+            'api_key'  => $api_key,
+            'method' => $method_to_call,
+            'country' => 'india',
+            'format' => 'json'
+        );
+
+        foreach ($params as $key => $value) {
+            $query_string .= "$key=" . urlencode($value) . "&";
+        }
+
+        $url = "$base?$query_string";
+        $url=substr_replace($url ,"",-1);
+        // echo $url . "<br />";
+        $temp = file_get_contents($url);
+        $output=json_decode($temp);
+        $details_array=userSession::object_to_array($output);
+        if(!isset($details_array['error'])){
+            $result=$details_array['toptracks']['track'];            
             return $result;
         }else{
             $user = Array (

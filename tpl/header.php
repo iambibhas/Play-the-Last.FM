@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include 'ptlmFramework.php';
 include 'var.php';
 $userSession = &New userSession;
@@ -18,11 +19,23 @@ $userSession = &New userSession;
     $title="";
     $php_self=explode("/",$_SERVER['PHP_SELF']);
     if($php_self[count($php_self) - 1] == "index.php"){
-        $title="Main";
+        $title="play the last.fm - Home";
     }else if($php_self[count($php_self) - 1] == "user.php"){
         $title = $_GET['name'] . "'s Profile";
     }else if($php_self[count($php_self) - 1] == "track.php"){
         $title = urldecode(str_replace("+"," ",$_GET['name'])) . " - Track Info";
+    }else if($php_self[count($php_self) - 1] == "album.php"){
+        $title = urldecode(str_replace("+"," ",$_GET['name'])) . " - Album Info";
+    }else if($php_self[count($php_self) - 1] == "artist.php"){
+        $title = urldecode(str_replace("+"," ",$_GET['name'])) . " - Artist Info";
+    }else if($php_self[count($php_self) - 1] == "about.php"){
+        $title = "About the app";
+    }else if($php_self[count($php_self) - 1] == "tag.php"){
+        $title = $_GET['tag'] . " - Tag info";
+    }else if($php_self[count($php_self) - 1] == "contact.php"){
+        $title = "Contact the creator";
+    }else if($php_self[count($php_self) - 1] == "ToS.php"){
+        $title = "Terms of Searvice";
     }
     
 ?>

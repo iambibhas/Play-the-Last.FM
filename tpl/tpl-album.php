@@ -47,6 +47,7 @@
                         <h3>Downloads</h3>
                         <?php
                         $outputDow = "";
+                        if(is_array($albumBuyLink['download'])){
                     for($i=0;$i<count($albumBuyLink['download']);$i++){
                         $outputDow = $outputDow . 
                         "<li><a target='_blank' href='{$albumBuyLink['download'][$i]['buyLink']}'>" . 
@@ -57,7 +58,10 @@
                             {$albumBuyLink['download'][$i]['price']['amount']}";
                         }
                         $outputDow = $outputDow . "</li>";
-                    }  ?>
+                    }
+                        }else{
+                            $outputDow="<li>No Download link found..</li>";
+                        }  ?>
                         <ul>
                     <?php
                     echo $outputDow;
@@ -67,12 +71,20 @@
                         <?php
                         $outputTag = "";
                         $albumTag=$albumInfo['toptags']['tag'];
+                        if(isset($albumTag[0])){
                             for($i=0;$i<count($albumTag);$i++){
                                 $outputTag = $outputTag . 
-                                "<span id='tags'><a target='_blank' href='{$albumTag[$i]['url']}'>" . 
+                                "<span id='tags'><a href='tag.php?tag={$albumTag[$i]['name']}'>" . 
                                 $albumTag[$i]['name'] . 
                                 "</a></span>&nbsp;";
-                            }  ?>
+                            }
+                        }else if(isset($albumTag['name'])){
+                            $outputTag = "<span id='tags'><a href='tag.php?tag={$albumTag[$i]['name']}'>" . 
+                                $albumTag['name'] . 
+                                "</a></span>&nbsp;";
+                        }else{
+                            $outputTag = "No Tags Found..";
+                        }  ?>
                         <ul>
                     <?php
                     echo $outputTag;

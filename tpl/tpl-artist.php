@@ -47,7 +47,7 @@
                         $artistTag=$artistInfo['tags']['tag'];
                             for($i=0;$i<count($artistTag);$i++){
                                 $outputTag = $outputTag . 
-                                "<span id='tags'><a target='_blank' href='{$artistTag[$i]['url']}'>" . 
+                                "<span id='tags'><a href='tag.php?tag={$artistTag[$i]['name']}'>" . 
                                 $artistTag[$i]['name'] . 
                                 "</a></span>&nbsp;";
                             }  ?>
@@ -59,7 +59,11 @@
                         
                         <h3>Biography</h3>
                         <div id="artist-bio">
-                            <pre width="80"><?php echo $artistInfo['bio']['content']; ?></pre>
+                            <pre width="80"><?php if(isset($artistInfo['bio']['content'])){
+                                echo $artistInfo['bio']['content']; 
+                            }else{
+                                echo "No details found";
+                            }?></pre>
                         </div>
                 <pre><?php //print_r($trackBuyLink); ?> </pre>  
                 </div>                    

@@ -1,27 +1,26 @@
 <div class="post">
-                <h1 class="title"><a href="#">Welcome to Pressurized </a></h1>
-                <div class="entry">
-                    <p>
-                         Not Logged in..
-                    </p>
+                <div id="main-banner">
+                          <h3>Hello Stranger!<br />
+                          Come.. And</h3> 
+                         <h2>Play The <img src="images/lastfm-logo.png" style="border:none;" /></h2>
                 </div>
-                <p class="meta">Posted by <a href="#">Someone</a> on March 10, 2008
-                    &nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>
-            </div>
-            <div class="post">
-                <h2 class="title"><a href="#">Lorem ipsum sed aliquam</a></h2>
-                <div class="entry">
-                    <p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Phasellus <a href="#">dapibus semper urna</a>. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc, ut consectetuer nisl felis ac diam. Etiam non felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem. Phasellus pellentesque. Mauris quam enim, molestie in, rhoncus ut, lobortis a, est.</p>
-                    <p>Praesent ac lectus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Vivamus augue. Fusce eget tellus ultrices ligula volutpat adipiscing. Aenean ligula lectus, vehicula in, dictum a, fermentum nec, felis. Nunc ac turpis in leo posuere imperdiet.</p>
+                <div id="toptracks">
+                <h3>People are Listening these</h3><br />
+                    <?php $topTracks=$userSession->getGeoTopTracks(); 
+                        $result="";
+                        for($i=0;$i<count($topTracks);$i++){
+                            $trackName=urlencode($topTracks[$i]['name']);
+                            $artistName=urlencode($topTracks[$i]['artist']['name']);
+                            $result=$result . 
+                            "<li><a target='_blank' href='track.php?name={$trackName}&artist={$artistName}'>" .
+                            "<img width='100px' height='100px' src='{$topTracks[$i]['image'][2]['#text']}' /><br />" .
+                            $topTracks[$i]['name'] .
+                            "</a></li>";
+                        }?>
+                        <ul>
+                        <?php echo $result; ?>
+                        </ul>
+                    
+                    <pre><?php //print_r($topTracks); ?></pre>
                 </div>
-                <p class="meta">Posted by <a href="#">Someone</a> on March 8, 2008
-                    &nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>
-            </div>
-            <div class="post">
-                <h2 class="title"><a href="#">Phasellus pellentesque turpis </a></h2>
-                <div class="entry">
-                    <p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc, ut consectetuer nisl felis ac diam. Etiam non felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem. Phasellus pellentesque. Mauris quam enim molestie  rhoncus lobortis a, est.</p>
-                </div>
-                <p class="meta">Posted by <a href="#">Someone</a> on March 8, 2008
-                    &nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>
             </div>
