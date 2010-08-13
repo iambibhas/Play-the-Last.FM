@@ -357,6 +357,47 @@ class userSession
         }
     }
     
+    public function getAlbumBuyLink($album,$artist){
+        include 'var.php';
+        $query_string="";
+        $method_to_call="album.getBuylinks";
+        $params = array( 
+            'api_key'  => $api_key,
+            'method' => $method_to_call,
+            'album' => $album,
+            'artist' => $artist,
+            'country' => 'united kingdom',
+            'format' => 'json'
+        );
+
+        foreach ($params as $key => $value) {
+            $query_string .= "$key=" . urlencode($value) . "&";
+        }
+
+        $url = "$base?$query_string";
+        $url=substr_replace($url ,"",-1);
+        // echo $url . "<br />";
+        $temp = file_get_contents($url);
+        $output=json_decode($temp);
+        $details_array=userSession::object_to_array($output);
+        if(!isset($details_array['error'])){
+            $physical=$details_array['affiliations']['physicals']['affiliation'];
+            $download=$details_array['affiliations']['downloads']['affiliation']; 
+            $result=Array(
+                'physicals' => $physical,
+                'download' => $download
+            );        
+            
+            return $result;
+        }else{
+            $user = Array (
+                'error' => $details_array['error'],
+                'message' => $details_array['message']
+            );
+            return $user;
+        }
+    }
+    
     public function getArtistInfo($artist){
         include 'var.php';
         $query_string="";
@@ -380,6 +421,40 @@ class userSession
         $details_array=userSession::object_to_array($output);
         if(!isset($details_array['error'])){
             $result=$details_array['artist'];
+            return $result;
+        }else{
+            $user = Array (
+                'error' => $details_array['error'],
+                'message' => $details_array['message']
+            );
+            return $user;
+        }
+    }
+    
+    public function getAlbumInfo($album,$artist){
+        include 'var.php';
+        $query_string="";
+        $method_to_call="album.getInfo";
+        $params = array( 
+            'api_key'  => $api_key,
+            'method' => $method_to_call,
+            'album' => $album,
+            'artist' => $artist,
+            'format' => 'json'
+        );
+
+        foreach ($params as $key => $value) {
+            $query_string .= "$key=" . urlencode($value) . "&";
+        }
+
+        $url = "$base?$query_string";
+        $url=substr_replace($url ,"",-1);
+        // echo $url . "<br />";
+        $temp = file_get_contents($url);
+        $output=json_decode($temp);
+        $details_array=userSession::object_to_array($output);
+        if(!isset($details_array['error'])){
+            $result=$details_array['album'];
             return $result;
         }else{
             $user = Array (

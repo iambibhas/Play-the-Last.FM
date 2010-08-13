@@ -11,7 +11,6 @@
                 <div id="artist-image"><img src="<?php echo $artistInfo['image'][2]['#text']; ?>" /></div>
                 <div id="track-desc">
                     <h2><a href="<?php echo $artistInfo['url']; ?>"><?php echo $artistInfo['name']; ?></a></h2>
-                   <br />
                     <div id="left-cont" >
                         <h2><?php echo $artistInfo['stats']['playcount']; ?></h2>
                         Plays
@@ -22,7 +21,7 @@
                     </div>
                 </div>
             </p>
-            <br /><br />
+
             <p>
                 <h2 align="center">Like <?php echo $artistInfo['name']; ?>? Listen to these people then..</h2>
                 <div id="tracklist"><br />
@@ -46,12 +45,12 @@
                         <?php
                         $outputTag = "";
                         $artistTag=$artistInfo['tags']['tag'];
-                    for($i=0;$i<count($artistTag);$i++){
-                        $outputTag = $outputTag . 
-                        "<span id='tags'><a target='_blank' href='{$artistTag[$i]['url']}'>" . 
-                        $artistTag[$i]['name'] . 
-                        "</a></span>&nbsp;";
-                    }  ?>
+                            for($i=0;$i<count($artistTag);$i++){
+                                $outputTag = $outputTag . 
+                                "<span id='tags'><a target='_blank' href='{$artistTag[$i]['url']}'>" . 
+                                $artistTag[$i]['name'] . 
+                                "</a></span>&nbsp;";
+                            }  ?>
                         <ul>
                     <?php
                     echo $outputTag;
@@ -60,7 +59,7 @@
                         
                         <h3>Biography</h3>
                         <div id="artist-bio">
-                            <?php echo $artistInfo['bio']['content']; ?>
+                            <pre width="80"><?php echo $artistInfo['bio']['content']; ?></pre>
                         </div>
                 <pre><?php //print_r($trackBuyLink); ?> </pre>  
                 </div>                    

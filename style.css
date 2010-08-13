@@ -44,14 +44,15 @@ ul, ol {
 
 a {
 	text-decoration: none;
-	border-bottom: 1px dotted #CC0001;
 	color: #CC0001;
 }
 
 a:hover {
 	background: none;
 }
-
+pre{
+    font-family: Tahoma;
+}
 #wrapper {
 	width: 910px;
 	margin: 0 auto;
@@ -244,6 +245,14 @@ input#name{
 #artist-image img{
     border: 6px double #3C0101;
 }
+
+#album-image{
+    float: left;
+}
+#album-image img{
+    border: 6px double #3C0101;
+}
+
 #tags{
     border: 1px dashed #570000;
     background: #3C0101;
@@ -256,13 +265,20 @@ input#name{
     background: #3C0101;
 }
 
+#album-bio{
+    border: 1px dashed #570000;
+    margin-top: 3px;
+    padding: 15px;
+    background: #3C0101;
+}
+
 #track-desc{
     padding-left: 150px;
     height: 142px;
 }
 #left-cont{
     width:120px;
-    margin: 20px 10px 20px 0;
+    margin: 25px 10px 15px 0;
     height:45px;
     padding:10px;
     float:left;
@@ -270,7 +286,7 @@ input#name{
     border: 1px dashed #570000;
 }
 #right-cont{
-    margin: 20px 0 20px;
+    margin: 25px 0 15px;
     width:120px;
     height:45px;
     padding:10px;
