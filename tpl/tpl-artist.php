@@ -27,13 +27,20 @@
                 <div id="tracklist"><br />
                 <?php 
                     $output = "";
-                    $sililarArtistList=$artistInfo['similar']['artist'];
+                    $similarArtistList=$artistInfo['similar']['artist'];
                     $artistName="";
-                    for($i=0;$i<count($sililarArtistList);$i++){
-                        $artistName=urlencode($sililarArtistList[$i]['name']);
+                    if(is_array($similarArtistList)){
+                    for($i=0;$i<count($similarArtistList);$i++){
+                        $artistName=urlencode($similarArtistList[$i]['name']);
                         $output = $output . 
                         "<li><a href='artist.php?name={$artistName}'>" . 
-                        $sililarArtistList[$i]['name'] . "</a> - <a target='_blank' href='{$sililarArtistList[$i]['url']}'>Last.fm link</a></li>";
+                        $similarArtistList[$i]['name'] . "</a> - <a target='_blank' href='{$similarArtistList[$i]['url']}'>Last.fm link</a></li>";
+                    }
+                    }else{
+                        $artistName=urlencode($similarArtistList['name']);
+                        $output = $output . 
+                        "<li><a href='artist.php?name={$artistName}'>" . 
+                        $similarArtistList['name'] . "</a> - <a target='_blank' href='{$similarArtistList['url']}'>Last.fm link</a></li>";
                     }  ?>
                         <h3>Similar Artists</h3>
                          <ul>
@@ -45,12 +52,19 @@
                         <?php
                         $outputTag = "";
                         $artistTag=$artistInfo['tags']['tag'];
+                        if(is_array($artistTag)){
                             for($i=0;$i<count($artistTag);$i++){
                                 $outputTag = $outputTag . 
                                 "<span id='tags'><a href='tag.php?tag={$artistTag[$i]['name']}'>" . 
                                 $artistTag[$i]['name'] . 
                                 "</a></span>&nbsp;";
-                            }  ?>
+                            } 
+                        }else{
+                            $outputTag = $outputTag . 
+                                "<span id='tags'><a href='tag.php?tag={$artistTag['name']}'>" . 
+                                $artistTag['name'] . 
+                                "</a></span>&nbsp;";
+                        } ?>
                         <ul>
                     <?php
                     echo $outputTag;
