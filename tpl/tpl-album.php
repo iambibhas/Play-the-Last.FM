@@ -70,8 +70,8 @@
                         <h3>Top Tags</h3>
                         <?php
                         $outputTag = "";
-                        $albumTag=$albumInfo['toptags']['tag'];
-                        if(count($albumTag[0]) > 0){
+                        $albumTag = $albumInfo['toptags']['tag'];
+                        if(isset($albumTag[0])){
                             foreach ($albumTag as $tag) {
                                 $outputTag = $outputTag . 
                                 "<span id='tags'><a href='tag.php?tag={$tag['name']}'>" . 
