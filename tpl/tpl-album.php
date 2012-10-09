@@ -31,10 +31,10 @@
                     echo "<h1>Error No. " . $albumBuyLink['error'] . " : " . $albumBuyLink['message'] . "</h1>";
                 }else{ 
                     $outputPhy = "";
-                    for($i=0;$i<count($albumBuyLink['physicals']);$i++){
+                    foreach ($$albumBuyLink['physicals'] as $physical) {
                         $outputPhy = $outputPhy . 
-                        "<li><a target='_blank' href='{$albumBuyLink['physicals'][$i]['buyLink']}'>" . 
-                        $albumBuyLink['physicals'][$i]['supplierName'] . "</a></li>";
+                        "<li><a target='_blank' href='{$physicals['buyLink']}'>" . 
+                        $physicals['supplierName'] . "</a></li>";
                     }
                     
                 }  ?>
