@@ -71,15 +71,15 @@
                         <?php
                         $outputTag = "";
                         $albumTag=$albumInfo['toptags']['tag'];
-                        if(isset($albumTag[0])){
-                            for($i=0;$i<count($albumTag);$i++){
+                        if(count($albumTag[0]) > 0){
+                            foreach ($albumTag as $tag) {
                                 $outputTag = $outputTag . 
-                                "<span id='tags'><a href='tag.php?tag={$albumTag[$i]['name']}'>" . 
-                                $albumTag[$i]['name'] . 
+                                "<span id='tags'><a href='tag.php?tag={$tag['name']}'>" . 
+                                $tag['name'] . 
                                 "</a></span>&nbsp;";
                             }
                         }else if(isset($albumTag['name'])){
-                            $outputTag = "<span id='tags'><a href='tag.php?tag={$albumTag[$i]['name']}'>" . 
+                            $outputTag = "<span id='tags'><a href='tag.php?tag={$albumTag['name']}'>" . 
                                 $albumTag['name'] . 
                                 "</a></span>&nbsp;";
                         }else{
